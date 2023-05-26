@@ -36,6 +36,8 @@ df = pd.read_excel(excel_file,sheet_name=sheet_name)
 
 # Create a SMTP session
 with smtplib.SMTP(smtp_server, smtp_port) as server:
+    server.starttls()  # Enable secure connection
+    server.login(smtp_username, smtp_password)  # Login to the SMTP server
 # Iterate over the rows
     for index, row in df.iterrows():
         
@@ -53,11 +55,8 @@ with smtplib.SMTP(smtp_server, smtp_port) as server:
 
             # Attach the message to the email
             msg.attach(MIMEText(message, 'plain'))
-
-            server.starttls()  # Enable secure connection
-            server.login(smtp_username, smtp_password)  # Login to the SMTP server
             server.sendmail(sender_email, receiver_email, msg.as_string())  # Send the email
-            print('Email sent successfully.')
+            
     
 
 
