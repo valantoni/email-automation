@@ -44,7 +44,7 @@ with smtplib.SMTP(smtp_server, smtp_port) as server:
         name = row['Nombre']
         email = row['Email']
         if email != 'Email not available':
-            message = message.replace(name,"[Nombre_del_destinatario]")
+            message = message.replace("[Nombre_del_destinatario]", name)
             # Email configuration
             receiver_email = email
             # Create a multipart message object
